@@ -1,0 +1,15 @@
+{
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "ritwickdey.LiveServer",
+        "alexcvzz.vscode-sqlite"
+      ],
+      "settings": {
+        "workbench.sideBar.location": "right"
+      }
+    }
+  }
+}

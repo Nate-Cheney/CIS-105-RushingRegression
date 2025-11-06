@@ -4,5 +4,5 @@ FROM plays;
 
 SELECT ydstogo, AVG(yards_gained) as avg_yards
 FROM plays
-WHERE rush_attempt = 1
+WHERE rush_attempt = 1.0
 GROUP BY ydstogo;

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Rushing Stats - RYOE Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏈 NFL Rushing Statistics Analysis</h1>
+            <p class="subtitle">Rushing Yards Over Expected (RYOE) Calculator</p>
+        </header>
+
+        <div class="info-box">
+            <h3>What is RYOE?</h3>
+            <p><strong>Rushing Yards Over Expected (RYOE)</strong> measures how many yards a running back gains compared to what would be expected based on the distance to go for a first down. It uses a regression model where:</p>
+            <p class="formula">Expected Yards = (Yards to Go × 0.126) + 3.473</p>
+            <p>A positive RYOE indicates the player is performing better than expected, while a negative RYOE suggests underperformance.</p>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Loading database... This may take a moment.</p>
+        </div>
+
+        <div id="app-content" class="hidden">
+            <!-- Player Lookup Section -->
+            <section class="feature-section">
+                <h2>🔍 Player Lookup</h2>
+                <p>Enter a player's name to see their rushing statistics and RYOE.</p>
+                
+                <form id="playerForm" class="input-form">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="playerNameInput" 
+                            placeholder="Enter player name (e.g. D.Henry)"
+                            required
+                        >
+                        <button type="submit" class="btn btn-primary">Search Player</button>
+                    </div>
+                </form>
+
+                <div id="playerResults" class="results hidden"></div>
+            </section>
+
+            <!-- Top Rushers Leaderboard Section -->
+            <section class="feature-section">
+                <h2>🏆 Top Rushers Leaderboard</h2>
+                <p>View the top 10 rushers by RYOE with a minimum number of rushes.</p>
+                
+                <form id="leaderboardForm" class="input-form">
+                    <div class="form-group">
+                        <input 
+                            type="number" 
+                            id="minRushesInput" 
+                            placeholder="Minimum rushes (e.g., 100)"
+                            min="1"
+                            required
+                        >
+                        <button type="submit" class="btn btn-primary">Get Top 10</button>
+                    </div>
+                </form>
+
+                <div id="leaderboardResults" class="results hidden"></div>
+            </section>
+        </div>
+
+        <footer>
+            <p>Data source: NFL Play-by-Play 2024 Season | Built with SQL.js</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -75,3 +75,35 @@ SELECT
     CASE WHEN down = 4.0 THEN 1.0 ELSE 0.0 END AS is_4th_down
 FROM plays
 WHERE rush_attempt = 1.0;
+
+-----------------------------------------------------------
+-- intercept_ = 2.471750805961095
+-- coef_ = [0.199273  , 0.73200072, 1.12417315, 0.82187461]
+-----------------------------------------------------------
+-- yds_to_go * slope + intercept + c2*d2 + c3*d3 + c4*d4 --
+
+SELECT 
+    rusher_player_id, 
+    rusher_player_name,
+    AVG(
+        yards_gained - 
+        (ydstogo * 0.199273 + 2.471750805961095 + 
+        0.73200072*is_2nd_down + 
+        1.12417315*is_3rd_down + 
+        0.82187461*is_4th_down)
+    ) as avg_ryoe
+FROM (
+    SELECT rusher_player_id, rusher_player_name, yards_gained, ydstogo,
+        CASE WHEN down = 2.0 THEN 1.0 ELSE 0.0 END AS is_2nd_down,
+        CASE WHEN down = 3.0 THEN 1.0 ELSE 0.0 END AS is_3rd_down,
+        CASE WHEN down = 4.0 THEN 1.0 ELSE 0.0 END AS is_4th_down
+    FROM plays
+    WHERE rush_attempt = 1.0
+)
+GROUP BY rusher_player_id,rusher_player_name
+HAVING COUNT(*) >= 100
+ORDER BY avg_ryoe DESC
+LIMIT 10;
+
+
+
